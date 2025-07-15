@@ -28,3 +28,18 @@ jobs:
           file: Dockerfile
           push: true
           tags: waqarhasan/shakajs-app:${{github.sha}}
+
+      - name: Clone my-ops repo, update image tags, and push tags
+        env:
+          PAT: ${{secrets.PAT}}
+        run: |
+          git clone https://github.com/WaqarHassan20/my-ops.git
+          cd my-ops
+
+          sed -i 's|image: waqarhasan/shakajs-app:.*|image: waqarhasan/shakajs-app:${{github.sha}}|' manifest.yml
+
+          git config user.name "Github Actions Bot"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Update shaka js app image tags to ${{github.sha}}"
+          git push https://${PAT}@github.com/WaqarHassan20/my-ops.git main
