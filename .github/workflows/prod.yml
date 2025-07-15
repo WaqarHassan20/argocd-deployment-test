@@ -36,7 +36,7 @@ jobs:
           git clone https://github.com/WaqarHassan20/my-ops.git
           cd my-ops
 
-          sed -i 's|image: waqarhasan/shakajs-app:.*|image: waqarhasan/shakajs-app:${{github.sha}}|' manifest.yml
+          sed -i 's|image: waqarhasan/shakajs-app:.*|image: waqarhasan/shakajs-app:${github.sha}|' manifest.yml
 
           git config user.name "Github Actions Bot"
           git config user.email "actions@github.com"
